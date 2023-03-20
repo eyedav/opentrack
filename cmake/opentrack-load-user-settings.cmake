@@ -26,6 +26,7 @@ else()
     set(__sdk_host_os "")
 endif()
 
+message("Loading sdk-paths file: ${CMAKE_CURRENT_SOURCE_DIR}/sdk-paths-${__sdk_username}@${CMAKE_CXX_COMPILER_ID}-${__sdk_host_os}${__sdk_target_os}.cmake")
 set(__sdk_paths_filename "${CMAKE_CURRENT_SOURCE_DIR}/sdk-paths-${__sdk_username}@${CMAKE_CXX_COMPILER_ID}-${__sdk_host_os}${__sdk_target_os}.cmake")
 
 if(EXISTS "${__sdk_paths_filename}")

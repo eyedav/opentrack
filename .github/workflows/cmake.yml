@@ -2,7 +2,7 @@ name: CMake
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, eyeware-beam-release-build ]
     tags:
     - '*'
   pull_request:
@@ -22,12 +22,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [windows-latest]
         include:
-        - os: macos-latest
-          cmake: cmake
-        - os: ubuntu-latest
-          cmake: cmake
+        # - os: macos-latest
+        #   cmake: cmake
+        # - os: ubuntu-latest
+        #   cmake: cmake
         - os: windows-latest
           cmake: .\.github\workflows\build-windows.bat cmake
 
@@ -35,9 +36,17 @@ jobs:
     - uses: actions/checkout@v2
     - uses: seanmiddleditch/gha-setup-ninja@master
 
-    - name: Install Linux Dependencies
-      run: sudo apt update && sudo apt install libprocps-dev libopencv-dev libopencv-dev wine64-tools
-      if: matrix.os == 'ubuntu-latest'
+    # - name: Install Linux Dependencies
+    #   run: sudo apt update && sudo apt install libprocps-dev libopencv-dev libopencv-dev wine64-tools
+    #   if: matrix.os == 'ubuntu-latest'
+
+    - name: Checkout opentrack-depends repo
+      uses: actions/checkout@v3
+      with:
+        repository: eyedav/opentrack-depends
+        path: opentrack-depends
+        submodules: true
+    - run: mv opentrack-depends ../
 
     - name: Cache Qt
       id: cache-qt

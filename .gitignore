@@ -2,7 +2,7 @@
 /build
 /build-*
 .DS_Store
-/sdk-paths-*.cmake
+# /sdk-paths-*.cmake
 /.idea/
 /.vs/
 /CMakeSettings.json
